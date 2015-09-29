@@ -127,7 +127,7 @@ Generally I would not use a table as a complete substitute for a plot. In cases 
 If adding sparklines to a plot, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
 
 The above examples are for illustration. The table below seems like a good mix of data tables and sparklines.
-This time I also grouped by location and climate variable even though they are constants in this data subset.This retains them in the final data table for display purposes.
+This time I also grouped by location and climate variable even though they are constants in this data subset. This retains them in the final data table for display purposes.
 I think it gives a better picture of what the table would look like with more columns which are not all narrow-width and numeric-valued.
 
 In the column definitions and the callback function, note the use of `.sparkSeries` and `.sparkSamples` to differentiate which type of sparklines are placed in each of the two columns.
@@ -142,8 +142,11 @@ it reveals how each in-line graph type draws the eye to different properties of 
 
 This strikes a nice balance. On the one hand, I could add additional columns to the table such as the median and quartiles,
 but I don't need to add these columns because I can hover over the box plot and see those values in the tooltip. I can also see information about outliers.
-This alleviates the need for additional columns. Regarding the time series plot, I cannot look at trends easily, or at all, in a summary table.
-I can only do this if I use a full table and summarise nothing.
+This alleviates the need for additional columns. I cannot look at trends easily, or at all, in a summary table.
+I can only do this if I use a full table and summarise nothing. For this reason the time series plots are also helpful.
+
+```{r table_final}
+```
 
 On the other hand, I could remove all my value columns, but I definitely do not want to.
 Technically speaking, I can get the means from the samples column using the box plots and the min and max values from the series column in-line graphs.
@@ -154,6 +157,3 @@ I want to look at a table and see numbers without any intermediary mental decodi
 This is why I see the integration of sparklines inside data tables as complimentary to other information in a table but not generally as a full replacement where the table becomes a series of pictures.
 The right balance allows for the most information to be immediately accessible. Some information, like a specific statistic, is best shown as a clearly visible number.
 Other information like the distribution of a random variable, a trend line, an expression of variability around a trend, or some other functional form, can be most quickly interpreted from a visual description.
-
-```{r table_final}
-```

@@ -208,7 +208,7 @@ Generally I would not use a table as a complete substitute for a plot. In cases 
 If adding sparklines to a plot, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
 
 The above examples are for illustration. The table below seems like a good mix of data tables and sparklines.
-This time I also grouped by location and climate variable even though they are constants in this data subset.This retains them in the final data table for display purposes.
+This time I also grouped by location and climate variable even though they are constants in this data subset. This retains them in the final data table for display purposes.
 I think it gives a better picture of what the table would look like with more columns which are not all narrow-width and numeric-valued.
 
 In the column definitions and the callback function, note the use of `.sparkSeries` and `.sparkSamples` to differentiate which type of sparklines are placed in each of the two columns.
@@ -235,18 +235,8 @@ cb = JS(paste0("function (oSettings, json) {\n  $('.sparkSeries:not(:has(canvas)
 
 This strikes a nice balance. On the one hand, I could add additional columns to the table such as the median and quartiles,
 but I don't need to add these columns because I can hover over the box plot and see those values in the tooltip. I can also see information about outliers.
-This alleviates the need for additional columns. Regarding the time series plot, I cannot look at trends easily, or at all, in a summary table.
-I can only do this if I use a full table and summarise nothing.
-
-On the other hand, I could remove all my value columns, but I definitely do not want to.
-Technically speaking, I can get the means from the samples column using the box plots and the min and max values from the series column in-line graphs.
-Neither specifically provides the standard deviation, but perhaps the box plot is "better" in some instances anyhow.
-Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my "table".
-I want to look at a table and see numbers without any intermediary mental decoding.
-
-This is why I see the integration of sparklines inside data tables as complimentary to other information in a table but not generally as a full replacement where the table becomes a series of pictures.
-The right balance allows for the most information to be immediately accessible. Some information, like a specific statistic, is best shown as a clearly visible number.
-Other information like the distribution of a random variable, a trend line, an expression of variability around a trend, or some other functional form, can be most quickly interpreted from a visual description.
+This alleviates the need for additional columns. I cannot look at trends easily, or at all, in a summary table.
+I can only do this if I use a full table and summarise nothing. For this reason the time series plots are also helpful.
 
 
 ```r
@@ -258,3 +248,13 @@ d5
 
 <!--html_preserve--><div id="htmlwidget-875" style="width:100%;height:auto;" class="datatables"></div>
 <script type="application/json" data-for="htmlwidget-875">{"x":{"data":[["Fairbanks, Alaska","Fairbanks, Alaska","Fairbanks, Alaska","Fairbanks, Alaska","Fairbanks, Alaska","Fairbanks, Alaska"],["Temperature","Temperature","Temperature","Temperature","Temperature","Temperature"],["1950s","1960s","1970s","1980s","1990s","2000s"],[13.3,13,14.5,13.2,13.6,13.7],[1.08,1.43,1.27,1.37,1.32,1.66],[11.6,10,12.7,11.8,11.8,11.5],[15.1,14.6,16.8,15.9,15.3,16.8],["14.2,14.3,12.1,13.2,13.6,11.6,13.1,15.1,13.6,12.4","12.7,12.8,14.3,12.6,13.5,11.5,13.7,14.4,14.6,10","13.7,13.2,14.8,12.7,14.9,13.3,15,16.8,15.1,15.7","12,12,13.5,11.8,12,13.3,12.5,14.2,14.5,15.9","15.3,12.3,13.5,13.2,15.2,13.8,11.8,14.8,11.9,14.5","11.5,14.1,12.5,13.4,16.8,14.2,12.6,16,12.7,12.8"],["14.2,14.3,12.1,13.2,13.6,11.6,13.1,15.1,13.6,12.4","12.7,12.8,14.3,12.6,13.5,11.5,13.7,14.4,14.6,10","13.7,13.2,14.8,12.7,14.9,13.3,15,16.8,15.1,15.7","12,12,13.5,11.8,12,13.3,12.5,14.2,14.5,15.9","15.3,12.3,13.5,13.2,15.2,13.8,11.8,14.8,11.9,14.5","11.5,14.1,12.5,13.4,16.8,14.2,12.6,16,12.7,12.8"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Location</th>\n      <th>Var</th>\n      <th>Decade</th>\n      <th>Mean</th>\n      <th>SD</th>\n      <th>Min</th>\n      <th>Max</th>\n      <th>Samples</th>\n      <th>Series</th>\n    </tr>\n  </thead>\n</table>","options":{"columnDefs":[{"targets":7,"render":"function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }"},{"targets":8,"render":"function(data, type, full){ return '<span class=sparkSeries>' + data + '</span>' }"},{"className":"dt-right","targets":[3,4,5,6]}],"fnDrawCallback":"function (oSettings, json) {\n  $('.sparkSeries:not(:has(canvas))').sparkline('html', { type: 'line', lineColor: 'black', fillColor: '#ccc', highlightLineColor: 'orange', highlightSpotColor: 'orange' });\n  $('.sparkSamples:not(:has(canvas))').sparkline('html', { type: 'box', lineColor: 'black', whiskerColor: 'black', outlierFillColor: 'black', outlierLineColor: 'black', medianColor: 'black', boxFillColor: 'orange', boxLineColor: 'black' });\n}\n","order":[],"autoWidth":false,"orderClasses":false},"callback":null,"filter":"none"},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.fnDrawCallback"]}</script><!--/html_preserve-->
+
+On the other hand, I could remove all my value columns, but I definitely do not want to.
+Technically speaking, I can get the means from the samples column using the box plots and the min and max values from the series column in-line graphs.
+Neither specifically provides the standard deviation, but perhaps the box plot is "better" in some instances anyhow.
+Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my "table".
+I want to look at a table and see numbers without any intermediary mental decoding.
+
+This is why I see the integration of sparklines inside data tables as complimentary to other information in a table but not generally as a full replacement where the table becomes a series of pictures.
+The right balance allows for the most information to be immediately accessible. Some information, like a specific statistic, is best shown as a clearly visible number.
+Other information like the distribution of a random variable, a trend line, an expression of variability around a trend, or some other functional form, can be most quickly interpreted from a visual description.
