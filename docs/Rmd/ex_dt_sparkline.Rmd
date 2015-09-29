@@ -36,6 +36,8 @@ Here is the full data table.
 ```{r table_full}
 ```
 
+##
+
 There are many options for displaying data table html wdigets in the browser using `DT`. See this tutorial for details.
 
 ##
@@ -45,7 +47,9 @@ There are many options for displaying data table html wdigets in the browser usi
 ```{r sparklines}
 ```
 
-Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 -2010, stored in `fai.p`.
+##
+
+Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 -2009, stored in `fai.p`.
 In-line graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(fai.p)")`.
 Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(fai.p, type='bar')")`.
 Options include but are not limited to line graphs `r sparkline(fai.p)`, bar graphs `r sparkline(fai.p, type='bar')`, and box plots `r sparkline(fai.p, type='box')`.
@@ -61,13 +65,18 @@ These definitions add the `spark` class to the targeted columns.
 ```{r defs}
 ```
 
+##
+
 I also define several callback functions, again all very similar. The only differences are minor tweaks to what I want the sparklines to look like.
 I make four data tables with sparklines, using lines, bars, and two with box plots.
+For some tables I use the range values from earlier to set a single y-axis common to each graph and for the others I allow each plot to have unique axis limits.
 
 ```{r callbacks}
 ```
 
-Notice that the call to `summarise` does collapse the data over years (grouped by decades and months), but nothing is lost because the values are concatenated into single character strings.
+##
+
+Notice that the call to `summarise` below does collapse the data over years (grouped by decades and months), but nothing is lost because the values are concatenated into single character strings.
 `dcast` is used to return the table to wide format for a more convenient display.
 
 ```{r sparkline_dt_prep}
@@ -86,11 +95,15 @@ By their nature they will not work as well for making comparisons between sparkl
 ```{r table_DxM_line}
 ```
 
+##
+
 Plot bar graphs using a months by decades layout. In this case I allow individual sparklines to have unique y-axis limits.
 They are much easier to read, but in this case the focus is more clearly not on comparing across months or decades.
 
 ```{r table_MxD_bar}
 ```
+
+##
 
 Plot bar graphs using a months by decades layout. The two versions below differ in their axis settings.
 The first allows unique chart ranges like the previous bar graph. The second fixes all sparklines to a single range.
@@ -119,6 +132,8 @@ it reveals how each in-line graph type draws the eye to different properties of 
 
 ```{r final_prep}
 ```
+
+##
 
 This strikes a nice balance. On the one hand, I could add additional columns to the table such as the median and quartiles,
 but I don't need to add these columns because I can hover over the box plot and see those values in the tooltip. I can also see information about outliers.
