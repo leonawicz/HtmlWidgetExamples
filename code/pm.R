@@ -25,7 +25,7 @@ chunkNames(path=file.path(proj.location, proj.name, "code"), append.new=TRUE)
 
 # @knitr ex_website
 # Setup for generating a project website
-proj.title <- "HtmlWidgetExamples"
+proj.title <- "R htmlwidgets examples"
 proj.menu <- c("DT & Sparklines", "All Projects")
 
 proj.submenu <- list(
