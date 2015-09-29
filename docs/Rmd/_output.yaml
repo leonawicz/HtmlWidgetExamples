@@ -1,0 +1,11 @@
+html_document:
+  self_contained: false
+  theme: cosmo
+  highlight: zenburn
+  mathjax: null
+  toc_depth: 2
+  lib_dir: libs
+  includes:
+    in_header: include/in_header.html
+    before_body: include/navbar.html
+    after_body: include/after_body.html
