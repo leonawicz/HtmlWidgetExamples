@@ -157,7 +157,7 @@ I want to look at a table and see numbers without any intermediary mental decodi
 This is why I see the integration of sparklines inside data tables as complimentary to other information in a table, but not generally as a full replacement where the table becomes a series of pictures,
 requiring human interaction with all the individual table cells in order to obtain certain types of information.
 
-To make an simile, the numeric data columns are like open doorways to an aggregation of the data.
+To make a simile, the numeric data columns are like open doorways to an aggregation of the data.
 The box plots are more like closed doors. You have to fuss with them as a user to obtain similar information.
 The time series graphs are more like locked doors in this context. You can figure out the mean from them, but doing so is ridiculous.
 However, the box plots and time series lines are each open doors to disaggregated information from the original data set, where the summary statistics in the numeric columns are more like closed doors.
