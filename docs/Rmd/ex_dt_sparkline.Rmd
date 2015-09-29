@@ -49,7 +49,7 @@ There are many options for displaying data table html wdigets in the browser usi
 
 ##
 
-Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 -2009, stored in `fai.p`.
+Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `fai.p`.
 In-line graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(fai.p)")`.
 Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(fai.p, type='bar')")`.
 Options include but are not limited to line graphs `r sparkline(fai.p)`, bar graphs `r sparkline(fai.p, type='bar')`, and box plots `r sparkline(fai.p, type='box')`.
