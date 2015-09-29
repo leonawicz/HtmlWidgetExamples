@@ -1,0 +1,124 @@
+---
+title: Combining datatables and sparkline
+output:
+  html_document:
+    toc: false
+    theme: cosmo
+    highlight: zenburn
+    keep_md: true
+---
+
+```{r knitr_setup, echo=FALSE}
+opts_chunk$set(cache=FALSE, echo=TRUE, eval=TRUE, tidy=TRUE, message=FALSE, warning=FALSE)
+read_chunk("../../code/ex_dt_sparkline.R")
+```
+
+##
+##
+## Examples using Fairbanks, Alaska climate
+
+In the examples below, I use SNAP's 2-km resolution downscaled CRU 3.2 temperature and precipitation data for Fairbanks, Alaska
+to demonstrate the use of the `DT` package for data tables and the `sparkline` package for in-line graphs as well as integration of sparkline in-line graphs into data tables.
+These packages make use of the `htmlwidgets` package and are interfaces to the jQuery plugins DataTables and Sparklines.
+
+First, load data and required packages. I store the temperature range over all months and years for later use.
+
+```{r setup}
+```
+
+### DT data tables
+
+Here is the full data table.
+
+```{r table_full}
+```
+
+There are many options for displaying data table html wdigets in the browser using `DT`. See this tutorial for details.
+
+### Sparkline in-line graphs
+
+```{r sparklines}
+```
+
+Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 -2010, stored in `fai.p`.
+In-line graphs can be shown with calls in your Rmarkdown document in the form ``r sparkline(fai.p)``.
+Different plots can be made by passing a `type` argument, e.g., ``r sparkline(fai.p, type='bar')``.
+Options include but are not limited to line graphs `r sparkline(fai.p)`, bar graphs `r sparkline(fai.p, type='bar')`, and box plots `r sparkline(fai.p, type='box')`.
+
+### Sparklines in data tables
+
+To make things more interesting, I integrate sparklines into data tables. This requires providing column definitions and callback functions when making the tables.
+Here I provide two similar column definitions, the only difference being which columns to target (counting from zero because this refers to javascript, not `R`).
+These definitions add the `spark` class to the targeted columns.
+
+```{r defs}
+```
+
+I also define several callback functions, again all very similar. The only differences are minor tweaks to what I want the sparklines to look like.
+I make four data tables with sparklines, using lines, bars, and two with boxplots.
+
+```{r callbacks}
+```
+
+Notice that the call to `summarise` does collapse the data over years (grouped by decades and months), but nothing is lost because the values are concatenated into single character strings.
+`dcast` is used to return the table to wide format for a more convenient display.
+
+```{r sparkline_dt_prep}
+```
+
+Plot temperature line graphs with a decades by months layout.
+This table shows sparklines which all share a common y-axis. It is not easy to read given the data.
+Sparklines are msot often used in-line among text, though in-line in a table is really no different and can in fact only make them easier to juxtapose and compare.
+Nevertheless, they work best when the interest is in obtaining a sense for variability in a signal at a glance.
+By their nature they will not work as well for making comparisons between sparklines.
+
+```{r table_DxM_line}
+```
+
+Plot bar graphs using a months by decades layout. In this case I allow individual sparklines to have unique y-axis limits.
+They are much easier to read, but in this case the focus is more clearly not on comparing across months or decades.
+
+```{r table_MxD_bar}
+```
+
+Plot bar graphs using a months by decades layout. The two versions below differ in their axis settings.
+The first allows unique chart ranges like the previous bar graph. The second fixes all sparklines to a single range.
+
+```{r table_MxD_box1}
+```
+
+```{r table_MxD_box2}
+```
+
+Generally I would not use a table as a complete substitute for a plot. In cases where I can, it is because the data set is simple that a traditional text table will suffice.
+If adding sparklines to a plot, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
+
+The above examples are for illustration. The table below seems like a good mix of data tables and sparklines.
+This time I also grouped by location and climate variable even though they are constants in this data subset.This retains them in the final data table for display purposes.
+I think it gives a better picture of what the table would look like with more columns which are not all narrow-width and numeric-valued.
+
+In the column definitions and the callback function, note the use of `.sparkSeries` and `.sparkSamples` to differentiate which type of sparklines are placed in each of the two columns.
+The box plot shows the distribution of values over a decade whereas the time series line gives a sense of whether any trend is present.
+Although it is a simple example and each individual plot is based on only ten values,
+it reveals how each in-line graph type draws the eye to different properties of the data and both are a nice compliment to the original data table.
+
+```{r final_prep}
+```
+
+This strikes a nice balance. On the one hand, I could add additional columns to the table such as the median and quartiles,
+but I don't need to add these columns because I can hover over the boxplot and see those values in the popover. I can also see information about outliers.
+This alleviates the need for additional columns. Regarding the time series plot, I cannot look at trends easily, or at all, in a summary table.
+I can only do this if I use a full table and summarise nothing.
+
+On the other hand, I could remove all my value columns, but I definitely do not want to.
+Technically speaking, I can get the means from the samples column using the box plots and the min and max values from the series column in-line graphs.
+Neither specifically provides the standard deviation, but perhaps the box plot is "better" in some instances anyhow.
+Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my "table".
+I want to look at a table and see numbers without any intermediary mental decoding.
+
+This is why I see the integration of sparklines inside data tables as complimentary to other information in a table but not generally as a full replacement where the table becomes a series of pictures.
+The right balance allows for the most information to be immediately accessible. Some information, like a specific statistic, is best shown as a clearly visible number.
+Other information like the distribution of a random variable, a trend line, an expression of variability around a trend, or some other functional form, can be most quickly interpeted from a visual description.
+
+```{r table_final}
+```
