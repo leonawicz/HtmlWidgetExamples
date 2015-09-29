@@ -135,6 +135,11 @@ fai.tb <- dcast(fai.t, Month ~ Decade)
 ##
 #### Example tables
 
+In the tables below, I have not excluded the option to sort rows by specific columns, because this is a nice feature of data tables I wish to show.
+However, as far as I can tell, the DataTables library does not do anything intelligent when required to sort table rows by a column containing sparklines.
+Also, the twelve months in the first column are levels of a factor in `R` but the javascript DataTables library sees this as a simple character string.
+Ideally sorting should be disallowed unless it can be restricted to reverse of what is listed initially.
+
 Plot temperature line graphs with a decades by months layout.
 This table shows sparklines which all share a common y-axis. It is not easy to read given the data.
 Sparklines are most often used in-line among text, though in-line in a table is really no different and can in fact only make them easier to juxtapose and compare.
@@ -199,7 +204,7 @@ d4
 ##
 #### A more useful table
 
-Generally I would not use a table as a complete substitute for a plot. In cases where I can, it is because the data set is simple that a traditional text table will suffice.
+Generally I would not use a table as a complete substitute for a plot. In cases where I can, it is because the data set is simple enough that a traditional text table will suffice.
 If adding sparklines to a plot, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
 
 The above examples are for illustration. The table below seems like a good mix of data tables and sparklines.
