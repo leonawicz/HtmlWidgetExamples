@@ -149,9 +149,9 @@ I can only do this if I use a full table and summarise nothing. For this reason 
 ```
 
 On the other hand, I could remove all my value columns, but I definitely do not want to.
-Technically speaking, I can get the means from the samples column using the box plots and the min and max values from the series column in-line graphs.
-Neither specifically provides the standard deviation, but perhaps the box plot is "better" in some instances anyhow.
-Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my "table".
+Technically speaking, I can get the medians from the samples column using the box plots, which are close enough to the means, and the min and max values from the series column in-line graphs.
+Neither plot type specifically provides the standard deviation, but perhaps seeing the distribution in box plot is "better" in some instances anyhow, like if the data were highly skewed.
+Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my table.
 I want to look at a table and see numbers without any intermediary mental decoding.
 
 This is why I see the integration of sparklines inside data tables as complimentary to other information in a table but not generally as a full replacement where the table becomes a series of pictures.
