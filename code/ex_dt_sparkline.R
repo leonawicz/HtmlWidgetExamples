@@ -12,30 +12,20 @@ r <- range(filter(fai, Var=="Temperature")$Val)
 # @knitr table_full
 fai
 
-# @knitr defs_callbacks
+# @knitr defs
 colDefs1 <- list(list(targets=c(1:12), render=JS("function(data, type, full){ return '<span class=spark>' + data + '</span>' }")))
 colDefs2 <- list(list(targets=c(1:6), render=JS("function(data, type, full){ return '<span class=spark>' + data + '</span>' }")))
 
 # @knitr callbacks
-cb_bar = JS(paste0("function (oSettings, json) {
-  $('.spark:not(:has(canvas))').sparkline('html', { type: 'bar', highlightColor: 'black' });
-}"), collapse="")
+bar_string <- "type: 'bar', barColor: 'orange', negBarColor: 'purple', highlightColor: 'black'"
+cb_bar = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').sparkline('html', { ", bar_string, " }); }"), collapse="")
 
-cb_line = JS(paste0("function (oSettings, json) {
-  $('.spark:not(:has(canvas))').sparkline('html', {
-    type: 'line', highlightColor: 'black', chartRangeMin: ", r[1], ", chartRangeMax: ", r[2], "
-  });
-}"), collapse="")
+line_string <- "type: 'line', lineColor: 'black', fillColor: '#ccc', highlightLineColor: 'orange', highlightSpotColor: 'orange'"
+cb_line = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').sparkline('html', { ", line_string, ", chartRangeMin: ", r[1], ", chartRangeMax: ", r[2], " }); }"), collapse="")
 
-cb_box1 = JS(paste0("function (oSettings, json) {
-  $('.spark:not(:has(canvas))').sparkline('html', { type: 'box', highlightColor: 'black' });
-}"), collapse="")
-
-cb_box2 = JS(paste0("function (oSettings, json) {
-  $('.spark:not(:has(canvas))').sparkline('html', {
-    type: 'box', highlightColor: 'black', chartRangeMin: ", r[1], ", chartRangeMax: ", r[2], "
-  });
-}"), collapse="")
+box_string <- "type: 'box', lineColor: 'black', whiskerColor: 'black', outlierFillColor: 'black', outlierLineColor: 'black', medianColor: 'black', boxFillColor: 'orange', boxLineColor: 'black'"
+cb_box1 = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').sparkline('html', { ", box_string," }); }"), collapse="")
+cb_box2 = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').sparkline('html', { ", box_string, ", chartRangeMin: ", r[1], ", chartRangeMax: ", r[2], " }); }"), collapse="")
 
 # @knitr sparklines
 fai.p <- filter(fai, Var=="Precipitation" & Decade=="2000s" & Month=="Aug")$Val
@@ -43,7 +33,6 @@ fai.p
 
 # @knitr sparkline_dt_prep
 fai.t <- fai %>% filter(Var=="Temperature" & Year >= 1950 & Year < 2010) %>% group_by(Decade, Month) %>% summarise(Temperature=paste(Val, collapse = ","))
-fai.t
 fai.ta <- dcast(fai.t, Decade ~ Month)
 fai.tb <- dcast(fai.t, Month ~ Decade)
 
@@ -73,15 +62,13 @@ fai.t2 <- fai %>% filter(Var=="Temperature" & Month=="Aug" & Year >= 1950 & Year
     summarise(Mean=round(mean(Val), 1), SD=round(sd(Val), 2), Min=min(Val), Max=max(Val), Samples=paste(Val, collapse = ",")) %>%
     mutate(Series=Samples) %>% data.table
     
-fai.t2
+cd <- list(list(targets=7, render=JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")),
+      list(targets=8, render=JS("function(data, type, full){ return '<span class=sparkSeries>' + data + '</span>' }")))
 
-cd <- list(list(targets=5, render=JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")),
-      list(targets=6, render=JS("function(data, type, full){ return '<span class=sparkSeries>' + data + '</span>' }")))
-
-cb = JS("function (oSettings, json) {
-  $('.sparkSeries:not(:has(canvas))').sparkline('html', { type: 'line', highlightColor: 'black' });
-  $('.sparkSamples:not(:has(canvas))').sparkline('html', { type: 'box', highlightColor: 'black' });
-}")
+cb = JS(paste0("function (oSettings, json) {
+  $('.sparkSeries:not(:has(canvas))').sparkline('html', { ", line_string, " });
+  $('.sparkSamples:not(:has(canvas))').sparkline('html', { ", box_string, " });
+}"), collapse="")
 
 # @knitr table_final
 d5 <- datatable(data.table(fai.t2), rownames=FALSE, options=list(columnDefs=cd, fnDrawCallback=cb))
