@@ -62,8 +62,8 @@ fai.t2 <- fai %>% filter(Var=="Temperature" & Month=="Aug" & Year >= 1950 & Year
     summarise(Mean=round(mean(Val), 1), SD=round(sd(Val), 2), Min=min(Val), Max=max(Val), Samples=paste(Val, collapse = ",")) %>%
     mutate(Series=Samples) %>% data.table
     
-cd <- list(list(targets=7, render=JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")),
-      list(targets=8, render=JS("function(data, type, full){ return '<span class=sparkSeries>' + data + '</span>' }")))
+cd <- list(list(targets=8, render=JS("function(data, type, full){ return '<span class=sparkSamples>' + data + '</span>' }")),
+      list(targets=9, render=JS("function(data, type, full){ return '<span class=sparkSeries>' + data + '</span>' }")))
 
 cb = JS(paste0("function (oSettings, json) {
   $('.sparkSeries:not(:has(canvas))').sparkline('html', { ", line_string, " });
