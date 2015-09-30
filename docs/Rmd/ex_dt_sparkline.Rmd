@@ -124,7 +124,7 @@ The first allows unique chart ranges like the previous bar graph. The second fix
 #### A more useful table
 
 Generally I would not use a table as a complete substitute for a plot. In cases where I can, it is because the data set is simple enough that a traditional text table will suffice.
-If adding sparklines to a plot, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
+If adding sparklines to a table, my preference is to use them to enhance a particular column or two, which otherwise remains a standard data table, rather than turn it into a "many-paneled plot".
 
 The above examples are for illustration. The table below seems like a good mix of data tables and sparklines.
 This time I also grouped by location and climate variable even though they are constants in this data subset. This retains them in the final data table for display purposes.
