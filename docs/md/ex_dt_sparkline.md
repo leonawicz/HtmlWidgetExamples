@@ -1,4 +1,4 @@
-# Combining datatables and sparkline
+# Combining data tables and sparklines
 
 
 
@@ -7,8 +7,8 @@
 ## Examples using Fairbanks, Alaska climate
 
 In the examples below, I use SNAP's 2-km resolution downscaled CRU 3.2 temperature and precipitation data for Fairbanks, Alaska
-to demonstrate the use of the `DT` package for data tables and the `sparkline` package for in-line graphs as well as integration of sparkline in-line graphs into data tables.
-These packages make use of the `htmlwidgets` package and are interfaces to the jQuery plugins DataTables and Sparklines.
+to demonstrate the use of the [DT](http://rstudio.github.io/DT/) package for data tables and the [sparkline](https://github.com/htmlwidgets/sparkline) package for inline graphs as well as integration of inline graphs into data tables.
+These packages make use of the [htmlwidgets](http://www.htmlwidgets.org/index.html) package and are interfaces to the jQuery plugins [dataTables](https://datatables.net/) and [sparkline](http://omnipotent.net/jquery.sparkline/#s-about).
 
 First, load data and required packages. I store the temperature range over all months and years for later use.
 
@@ -57,7 +57,7 @@ There are many options for displaying data table html wdigets in the browser usi
 
 ##
 ##
-### Sparkline in-line graphs
+### Sparkline inline graphs
 
 
 ```r
@@ -71,7 +71,7 @@ fai.p
 
 ##
 
-Next, display some in-line graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `fai.p`.
+Next, display some inline graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `fai.p`.
 In-line graphs can be shown with calls in your `R` Markdown document in the form ``` `r sparkline(fai.p)` ```.
 Different plots can be made by passing a `type` argument, e.g., ``` `r sparkline(fai.p, type='bar')` ```.
 Options include but are not limited to line graphs <!--html_preserve--><span id="htmlwidget-7913" class="sparkline"></span>
@@ -142,7 +142,7 @@ Ideally sorting should be disallowed unless it can be restricted to reverse of w
 
 Plot temperature line graphs with a decades by months layout.
 This table shows sparklines which all share a common y-axis. It is not easy to read given the data.
-Sparklines are most often used in-line among text, though in-line in a table is really no different and can in fact only make them easier to juxtapose and compare.
+Sparklines are most often used inline among text, though inline in a table is really no different and can in fact only make them easier to juxtapose and compare.
 Nevertheless, they work best when the interest is in obtaining a sense for variability in a signal at a glance.
 By their nature they will not work as well for making comparisons between sparklines.
 
@@ -214,7 +214,7 @@ I think it gives a better picture of what the table would look like with more co
 In the column definitions and the callback function, note the use of `.sparkSeries` and `.sparkSamples` to differentiate which type of sparklines are placed in each of the two columns.
 The box plot shows the distribution of values over a decade whereas the time series line gives a sense of whether any trend is present.
 Although it is a simple example and each individual plot is based on only ten values,
-it reveals how each in-line graph type draws the eye to different properties of the data and both are a nice compliment to the original data table.
+it reveals how each inline graph type draws the eye to different properties of the data and both are a nice compliment to the original data table.
 
 
 ```r
@@ -239,7 +239,7 @@ This alleviates the need for additional columns. I cannot look at trends easily,
 I can only do this if I use a full table and summarise nothing. For this reason the time series plots are also helpful.
 
 On the other hand, I could remove all my value columns, but I definitely do not want to.
-Technically speaking, I can get the medians from the samples column using the box plots, which are close enough to the means, and the min and max values from the series column in-line graphs.
+Technically speaking, I can get the medians from the samples column using the box plots, which are close enough to the means, and the min and max values from the series column inline graphs.
 Neither plot type specifically provides the standard deviation, but perhaps seeing the distribution in a box plot is "better" in some instances anyhow, like if the data were highly skewed.
 Ultimately, I do not want to be required to hover over all these little plots to essentially decrypt my table.
 I want to look at a table and see numbers without any intermediary mental decoding.
