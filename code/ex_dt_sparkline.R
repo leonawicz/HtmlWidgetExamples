@@ -58,7 +58,7 @@ d4
 
 # @knitr final_prep
 fai.t2 <- fai %>% filter(Var=="Temperature" & Month=="Aug" & Year >= 1950 & Year < 2010) %>%
-    group_by(Location, Var, Decade) %>%
+    group_by(Location, Month, Var, Decade) %>%
     summarise(Mean=round(mean(Val), 1), SD=round(sd(Val), 2), Min=min(Val), Max=max(Val), Samples=paste(Val, collapse = ",")) %>%
     mutate(Series=Samples) %>% data.table
     
