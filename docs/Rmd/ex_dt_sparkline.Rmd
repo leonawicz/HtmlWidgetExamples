@@ -16,9 +16,9 @@ rinline <- function(code_string) sprintf('``` `r %s` ```', bquote(.(code_string)
 
 ##
 ##
-## Examples using Fairbanks, Alaska climate data
+## Examples using historical climate data
 
-In the examples below, I use SNAP's 2-km resolution downscaled CRU 3.2 temperature and precipitation data for Fairbanks, Alaska
+In the examples below, I use a 1950 - 2009 subset of SNAP's 2-km resolution downscaled CRU 3.2 temperature and precipitation data for Edmonton, Alberta and Anchorage, Alaska
 to demonstrate the use of the [DT](http://rstudio.github.io/DT/) package for data tables and the [sparkline](https://github.com/htmlwidgets/sparkline) package for inline graphs as well as integration of inline graphs into data tables.
 These packages make use of the [htmlwidgets](http://www.htmlwidgets.org/index.html) package and are interfaces to the jQuery plugins [dataTables](https://datatables.net/) and [sparkline](http://omnipotent.net/jquery.sparkline/#s-about).
 
@@ -37,6 +37,20 @@ Here is the full data table generated with `DT`. There are many options for disp
 ```
 
 ##
+
+Methods for filtering differ based upon the data structure. The location, climate variable, and month columns represent factors. Filtering allows you to select specific levels.
+If they were treated as character strings, the filter method would be to type in the box and rows would filter to unique matches, but this would not allow you to select multiple values.
+It would be a good method if you want to only permit filtering to a single string value or some subset that are clearly related by name.
+I left the decades column as character strings as an example. Years can be filtered using a slider.
+
+Sorting behavior is alphabetical for factors as well as character strings. On the javascript side, factor information in **R** appears to be lost as far as sorting is concerned, despite the unique factor filtering behavior available.
+Months have factor levels with an obvious ordering, unlike locations or climate variables. At most you might wish to reverse their default order.
+If you sort by month it will change to alphabetical order. Sorting again will lead to reverse alphabetical order.
+The original, sensible ordering cannot be recovered without reloading the page.
+
+In the remainder of the examples, the location and climate variables are restrcited to Edmonton, Alberta temperature for simplicity.
+
+##
 ##
 ### Sparkline inline graphs
 
@@ -45,10 +59,10 @@ Here is the full data table generated with `DT`. There are many options for disp
 
 ##
 
-Next, display some inline graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `fai.p`.
-In-line graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(fai.p)")`.
-Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(fai.p, type='bar')")`.
-Options include but are not limited to line graphs `r sparkline(fai.p)`, bar graphs `r sparkline(fai.p, type='bar')`, and box plots `r sparkline(fai.p, type='box')`.
+Next, display some inline graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `dat.p`.
+In-line graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(dat.p)")`.
+Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(dat.p, type='bar')")`.
+Options include but are not limited to line graphs `r sparkline(dat.p)`, bar graphs `r sparkline(dat.p, type='bar')`, and box plots `r sparkline(dat.p, type='box')`.
 
 ##
 ##
