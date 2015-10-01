@@ -1,16 +1,16 @@
 # @knitr setup
-load("C:/github/HtmlWidgetExamples/data/fai_temps.RData")
+load("C:/github/HtmlWidgetExamples/data/climate.RData")
 library(data.table)
 library(reshape2)
 library(dplyr)
 library(DT)
 library(sparkline)
 
-fai <- mutate(fai, Decade=paste0(Year - Year %% 10, "s"))
-r <- range(filter(fai, Var=="Temperature")$Val)
+dat <- mutate(dat, Decade=paste0(Year - Year %% 10, "s"))
+r <- range(filter(dat, Var=="Temperature" & Location=="Edmonton, Alberta")$Val)
 
 # @knitr table_full
-datatable(fai, rownames=FALSE)
+datatable(dat, rownames=FALSE, filter="bottom")
 
 # @knitr defs
 colDefs1 <- list(list(targets=c(1:12), render=JS("function(data, type, full){ return '<span class=spark>' + data + '</span>' }")))
@@ -28,36 +28,37 @@ cb_box1 = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').
 cb_box2 = JS(paste0("function (oSettings, json) { $('.spark:not(:has(canvas))').sparkline('html', { ", box_string, ", chartRangeMin: ", r[1], ", chartRangeMax: ", r[2], " }); }"), collapse="")
 
 # @knitr sparklines
-fai.p <- filter(fai, Var=="Precipitation" & Decade=="2000s" & Month=="Aug")$Val
-fai.p
+dat.p <- filter(dat, Var=="Precipitation" & Decade=="2000s" & Month=="Aug")$Val
+dat.p
 
 # @knitr sparkline_dt_prep
-fai.t <- fai %>% filter(Var=="Temperature" & Year >= 1950 & Year < 2010) %>% group_by(Decade, Month) %>% summarise(Temperature=paste(Val, collapse = ","))
-fai.ta <- dcast(fai.t, Decade ~ Month)
-fai.tb <- dcast(fai.t, Month ~ Decade)
+dat.t <- filter(dat, Var=="Temperature" & Location=="Edmonton, Alberta") %>%
+    group_by(Decade, Month) %>% summarise(Temperature=paste(Val, collapse = ","))
+dat.ta <- dcast(dat.t, Decade ~ Month)
+dat.tb <- dcast(dat.t, Month ~ Decade)
 
 # @knitr table_DxM_line
-d1 <- datatable(data.table(fai.ta), rownames=FALSE, options=list(columnDefs=colDefs1, fnDrawCallback=cb_line))
+d1 <- datatable(data.table(dat.ta), rownames=FALSE, filter="bottom", options=list(columnDefs=colDefs1, fnDrawCallback=cb_line))
 d1$dependencies <- append(d1$dependencies, htmlwidgets:::getDependency('sparkline'))
 d1
 
 # @knitr table_MxD_bar
-d2 <- datatable(data.table(fai.tb), rownames=FALSE, options=list(columnDefs=colDefs2, fnDrawCallback=cb_bar))
+d2 <- datatable(data.table(dat.tb), rownames=FALSE, filter="bottom", options=list(columnDefs=colDefs2, fnDrawCallback=cb_bar))
 d2$dependencies <- append(d2$dependencies, htmlwidgets:::getDependency('sparkline'))
 d2
 
 # @knitr table_MxD_box1
-d3 <- datatable(data.table(fai.tb), rownames=FALSE, options=list(columnDefs=colDefs2, fnDrawCallback=cb_box1))
+d3 <- datatable(data.table(dat.tb), rownames=FALSE, filter="bottom", options=list(columnDefs=colDefs2, fnDrawCallback=cb_box1))
 d3$dependencies <- append(d3$dependencies, htmlwidgets:::getDependency('sparkline'))
 d3
 
 # @knitr table_MxD_box2
-d4 <- datatable(data.table(fai.tb), rownames=FALSE, options=list(columnDefs=colDefs2, fnDrawCallback=cb_box2))
+d4 <- datatable(data.table(dat.tb), rownames=FALSE, filter="bottom", options=list(columnDefs=colDefs2, fnDrawCallback=cb_box2))
 d4$dependencies <- append(d4$dependencies, htmlwidgets:::getDependency('sparkline'))
 d4
 
 # @knitr final_prep
-fai.t2 <- fai %>% filter(Var=="Temperature" & Month=="Aug" & Year >= 1950 & Year < 2010) %>%
+dat.t2 <- filter(dat, Var=="Temperature" & Location=="Edmonton, Alberta" & Month=="Aug") %>%
     group_by(Location, Month, Var, Decade) %>%
     summarise(Mean=round(mean(Val), 1), SD=round(sd(Val), 2), Min=min(Val), Max=max(Val), Samples=paste(Val, collapse = ",")) %>%
     mutate(Series=Samples) %>% data.table
@@ -71,6 +72,6 @@ cb = JS(paste0("function (oSettings, json) {
 }"), collapse="")
 
 # @knitr table_final
-d5 <- datatable(data.table(fai.t2), rownames=FALSE, options=list(columnDefs=cd, fnDrawCallback=cb))
+d5 <- datatable(data.table(dat.t2), rownames=FALSE, filter="bottom", options=list(columnDefs=cd, fnDrawCallback=cb))
 d5$dependencies <- append(d5$dependencies, htmlwidgets:::getDependency('sparkline'))
 d5
