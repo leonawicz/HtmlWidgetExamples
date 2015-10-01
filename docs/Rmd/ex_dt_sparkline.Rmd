@@ -101,7 +101,7 @@ They are much easier to read, but in this case the focus is more clearly not on 
 
 ##
 
-Plot bar graphs using a months by decades layout. The two versions below differ in their axis settings.
+Plot box plots using a months by decades layout. The two versions below differ in their axis settings.
 The first allows unique chart ranges like the previous bar graph. The second fixes all sparklines to a single range.
 
 ```{r table_MxD_box1}
