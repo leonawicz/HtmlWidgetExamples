@@ -10,7 +10,7 @@ fai <- mutate(fai, Decade=paste0(Year - Year %% 10, "s"))
 r <- range(filter(fai, Var=="Temperature")$Val)
 
 # @knitr table_full
-fai
+datatable(fai, rownames=FALSE)
 
 # @knitr defs
 colDefs1 <- list(list(targets=c(1:12), render=JS("function(data, type, full){ return '<span class=spark>' + data + '</span>' }")))

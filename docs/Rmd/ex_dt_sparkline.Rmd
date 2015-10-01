@@ -16,7 +16,7 @@ rinline <- function(code_string) sprintf('``` `r %s` ```', bquote(.(code_string)
 
 ##
 ##
-## Examples using Fairbanks, Alaska climate
+## Examples using Fairbanks, Alaska climate data
 
 In the examples below, I use SNAP's 2-km resolution downscaled CRU 3.2 temperature and precipitation data for Fairbanks, Alaska
 to demonstrate the use of the [DT](http://rstudio.github.io/DT/) package for data tables and the [sparkline](https://github.com/htmlwidgets/sparkline) package for inline graphs as well as integration of inline graphs into data tables.
@@ -31,14 +31,10 @@ First, load data and required packages. I store the temperature range over all m
 ##
 ### DT data tables
 
-Here is the full data table.
+Here is the full data table generated with `DT`. There are many options for displaying data table html wdigets in the browser using `DT`. See this [introduction](http://rstudio.github.io/DT/) for details.
 
 ```{r table_full}
 ```
-
-##
-
-There are many options for displaying data table html wdigets in the browser using `DT`. See this tutorial for details.
 
 ##
 ##
