@@ -55,7 +55,7 @@ dat.p
 
 ##
 
-Next, display some inline graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `dat.p`.
+Next, display some inline graphs. Here I use August precipitation totals from Edmonton each year from 2000 - 2009, stored in `dat.p`.
 In-line graphs can be shown with calls in your `R` Markdown document in the form ``` `r sparkline(dat.p)` ```.
 Different plots can be made by passing a `type` argument, e.g., ``` `r sparkline(dat.p, type='bar')` ```.
 Options include but are not limited to line graphs <!--html_preserve--><span id="htmlwidget-7906" class="sparkline"></span>

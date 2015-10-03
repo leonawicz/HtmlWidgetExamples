@@ -45,7 +45,7 @@ Here is the full data table generated with `DT`. There are various feature optio
 
 ##
 
-Next, display some inline graphs. Here I use August precipitation totals from Fairbanks each year from 2000 - 2009, stored in `dat.p`.
+Next, display some inline graphs. Here I use August precipitation totals from Edmonton each year from 2000 - 2009, stored in `dat.p`.
 In-line graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(dat.p)")`.
 Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(dat.p, type='bar')")`.
 Options include but are not limited to line graphs `r sparkline(dat.p)`, bar graphs `r sparkline(dat.p, type='bar')`, and box plots `r sparkline(dat.p, type='box')`.
