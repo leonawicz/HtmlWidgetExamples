@@ -1,6 +1,5 @@
 navbar:
   title: "R htmlwidgets examples"
-  type: inverse
   left:
     - text: "DT & Sparklines"
       href: index.html
