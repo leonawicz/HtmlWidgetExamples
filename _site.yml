@@ -1,0 +1,9 @@
+navbar:
+  title: "R htmlwidgets examples"
+  type: inverse
+  left:
+    - text: "DT & Sparklines"
+      href: index.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/leonawicz/HtmlWidgetExamples

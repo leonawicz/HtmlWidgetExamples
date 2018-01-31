@@ -5,12 +5,11 @@ output:
     toc: false
     theme: cosmo
     highlight: zenburn
-    keep_md: true
 ---
 
 ```{r knitr_setup, echo=FALSE}
-opts_chunk$set(cache=FALSE, echo=TRUE, eval=TRUE, tidy=TRUE, message=FALSE, warning=FALSE)
-read_chunk("../../code/ex_dt_sparkline.R")
+knitr::opts_chunk$set(cache=FALSE, echo=TRUE, eval=TRUE, tidy=TRUE, message=FALSE, warning=FALSE)
+knitr::read_chunk("ex_dt_sparkline.R")
 rinline <- function(code_string) sprintf('``` `r %s` ```', bquote(.(code_string)))
 ```
 
@@ -46,9 +45,9 @@ Here is the full data table generated with `DT`. There are various feature optio
 ##
 
 Next, display some inline graphs. Here I use August precipitation totals from Edmonton each year from 2000 - 2009, stored in `dat.p`.
-Inline graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(dat.p)")`.
-Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(dat.p, type='bar')")`.
-Options include but are not limited to line graphs `r sparkline(dat.p)`, bar graphs `r sparkline(dat.p, type='bar')`, and box plots `r sparkline(dat.p, type='box')`.
+Inline graphs can be shown with calls in your `R` Markdown document in the form `r rinline("sparkline(dat_p)")`.
+Different plots can be made by passing a `type` argument, e.g., `r rinline("sparkline(dat_p, type='bar')")`.
+Options include but are not limited to line graphs `r sparkline(dat_p)`, bar graphs `r sparkline(dat_p, type='bar')`, and box plots `r sparkline(dat_p, type='box')`.
 
 ##
 ##
@@ -134,7 +133,7 @@ it reveals how each inline graph type draws the eye to different properties of t
 This strikes a nice balance. On the one hand, I could add additional columns to the table such as the median and quartiles,
 but I don't need to add these columns because I can hover over the box plot and see those values in the tooltip. I can also see information about outliers.
 This alleviates the need for additional columns. I cannot look at trends easily, or at all, in a summary table.
-I can only do this if I use a full table and summarise nothing. For this reason the time series plots are also helpful.
+I can only do this if I use a full table and summarize nothing. For this reason the time series plots are also helpful.
 
 On the other hand, I could remove all my value columns, but I definitely do not want to.
 Technically speaking, I can get the medians from the samples column using the box plots, which are close enough to the means, and the min and max values from the series column inline graphs.
